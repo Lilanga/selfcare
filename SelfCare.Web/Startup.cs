@@ -1,10 +1,13 @@
-ï»¿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Owin;
-using Owin;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Startup.cs" company="SoftCrafters">
+//   Copyright © 2015 
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
-[assembly: OwinStartup(typeof(SelfCare.Web.Startup))]
+using Owin;
+using SelfCare.Web;
+
+[assembly: Microsoft.Owin.OwinStartup(typeof(Startup))]
 
 namespace SelfCare.Web
 {
@@ -12,7 +15,10 @@ namespace SelfCare.Web
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            //// For more information on how to configure your application, visit:
+            //// http://go.microsoft.com/fwlink/?LinkID=316888
+
+            this.ConfigureAuth(app);
         }
     }
 }

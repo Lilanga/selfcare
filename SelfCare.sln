@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfCare.WebServices", "SelfCare.WebServices\SelfCare.WebServices.csproj", "{67AB39BB-A1F1-4229-B5D6-898EB2D7E67D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfCare.Web", "SelfCare.Web\SelfCare.Web.csproj", "{B403403A-0E24-4410-9B11-4A688CBE9BEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfCare.Web", "SelfCare.Web\SelfCare.Web.csproj", "{6B3505DD-35D0-4E39-9011-A8325EC7E3F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{67AB39BB-A1F1-4229-B5D6-898EB2D7E67D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67AB39BB-A1F1-4229-B5D6-898EB2D7E67D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67AB39BB-A1F1-4229-B5D6-898EB2D7E67D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B403403A-0E24-4410-9B11-4A688CBE9BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B403403A-0E24-4410-9B11-4A688CBE9BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B403403A-0E24-4410-9B11-4A688CBE9BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B403403A-0E24-4410-9B11-4A688CBE9BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B3505DD-35D0-4E39-9011-A8325EC7E3F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B3505DD-35D0-4E39-9011-A8325EC7E3F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B3505DD-35D0-4E39-9011-A8325EC7E3F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B3505DD-35D0-4E39-9011-A8325EC7E3F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

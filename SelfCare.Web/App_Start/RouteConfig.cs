@@ -1,9 +1,11 @@
-ï»¿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="RouteConfig.cs" company="SoftCrafters">
+//   Copyright © 2015 
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 using System.Web.Routing;
+using SelfCare.Web.Routing;
 
 namespace SelfCare.Web
 {
@@ -11,13 +13,7 @@ namespace SelfCare.Web
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            routes.Add("Default", new DefaultRoute());
         }
     }
 }

@@ -1,18 +1,19 @@
-ï»¿using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Global.asax.cs" company="SoftCrafters">
+//   Copyright © 2015 
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace SelfCare.Web
 {
-    public class MvcApplication : HttpApplication
+    public class Application : HttpApplication
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }

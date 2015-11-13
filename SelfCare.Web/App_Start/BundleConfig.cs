@@ -1,6 +1,9 @@
-ï»¿using System;
-using System.Collections.Generic;
-using System.Linq;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BundleConfig.cs" company="SoftCrafters">
+//   Copyright © 2015 
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 using System.Web.Optimization;
 
 namespace SelfCare.Web
@@ -10,46 +13,17 @@ namespace SelfCare.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-{version}.js"));
+            bundles.Add(new StyleBundle("~/content/css/app").Include("~/content/app.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                "~/Scripts/jquery.unobtrusive*",
-                "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/js/jquery").Include("~/scripts/vendor/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                "~/Scripts/knockout-{version}.js",
-                "~/Scripts/knockout.validation.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                "~/Scripts/sammy-{version}.js",
-                "~/Scripts/app/common.js",
-                "~/Scripts/app/app.datamodel.js",
-                "~/Scripts/app/app.viewmodel.js",
-                "~/Scripts/app/home.viewmodel.js",
-                "~/Scripts/app/_run.js"));
-
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                "~/Scripts/modernizr-*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.js",
-                "~/Scripts/respond.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/angular_material").Include(
-                "~/Scripts/angular.js",
-                "~/Scripts/angular-animate.js",
-                "~/Scripts/angular-aria.js",
-                "~/Scripts/angular-material.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                 "~/Content/bootstrap.css",
-                 "~/Content/Site.css"));
-
-            bundles.Add(new StyleBundle("~/Content/angular_material").Include(
-                 "~/Content/angular-material.css"));
+            bundles.Add(new ScriptBundle("~/js/app").Include(
+                "~/scripts/vendor/angular-ui-router.js",
+                "~/scripts/filters.js",
+                "~/scripts/services.js",
+                "~/scripts/directives.js",
+                "~/scripts/controllers.js",
+                "~/scripts/app.js"));
         }
     }
 }
