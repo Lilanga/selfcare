@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "ASP.NET",
+  "name": "SelfCare.Web",
   "private": true,
   "devDependencies": {
     "grunt": "0.4.5",
