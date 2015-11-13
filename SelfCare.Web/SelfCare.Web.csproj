@@ -134,6 +134,7 @@
     <Content Include="Content\app.less" />
     <Content Include="Content\variables.less" />
     <Content Include="Global.asax" />
+    <Content Include="gruntfile.js" />
     <Content Include="Scripts\controllers.js" />
     <Content Include="Scripts\controllers.spec.js">
       <DependentUpon>controllers.js</DependentUpon>
@@ -428,6 +429,7 @@
     <Content Include="Scripts\vendor\jasmine-html.js" />
     <Content Include="Scripts\vendor\jasmine.js" />
     <Content Include="Scripts\.jshintrc" />
+    <Content Include="package.json" />
     <None Include="Scripts\vendor\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\vendor\jquery-2.0.3.js" />
     <Content Include="Scripts\vendor\jquery-2.0.3.min.js" />
