@@ -430,8 +430,6 @@
     <Content Include="Scripts\vendor\jasmine.js" />
     <Content Include="Scripts\.jshintrc" />
     <Content Include="package.json" />
-    <Content Include=".bowerrc" />
-    <Content Include="bower.json" />
     <None Include="Scripts\vendor\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\vendor\jquery-2.0.3.js" />
     <Content Include="Scripts\vendor\jquery-2.0.3.min.js" />

@@ -1,15 +1,6 @@
 ﻿/// <binding AfterBuild='less' ProjectOpened='watch' />
 module.exports = function (grunt) {
     grunt.initConfig({
-        bower: {
-            install: {
-                options: {
-                    targetDir: 'wwwroot/lib',
-                    layout: 'byComponent',
-                    cleanTargetDir: false
-                }
-            }
-        },
         watch: {
             less: {
                 files: ['content/*.less'],
@@ -20,6 +11,11 @@ module.exports = function (grunt) {
             }
         },
         less: {
+            build: {
+                files: {
+                    'content/app.css': 'content/app.less'
+                }
+            },
             production: {
                 options: {
                     cleancss: true
@@ -39,9 +35,8 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['bower:install']);
+    grunt.registerTask('default', ['less:build']);
 
-    grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
 };
