@@ -4,7 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
+using Microsoft.Practices.Unity;
 using Newtonsoft.Json.Serialization;
+using SelfCare.Data;
+using SelfCare.Services;
+using SelfCare.WebServices.Providers;
 
 namespace SelfCare.WebServices
 {
@@ -25,6 +29,13 @@ namespace SelfCare.WebServices
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // Unity Configurations
+            var container = new UnityContainer();
+            container.RegisterType<ICategoryService, CategoryService>
+                (new PerThreadLifetimeManager())
+                          .RegisterType<ICareDataContext, CareDataContext>();
+            config.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
 }

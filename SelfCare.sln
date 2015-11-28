@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfCare.WebServices", "Sel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfCare.Web", "SelfCare.Web\SelfCare.Web.csproj", "{6B3505DD-35D0-4E39-9011-A8325EC7E3F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfCare.Data", "SelfCare.Data\SelfCare.Data.csproj", "{9A1CC78E-C4D2-445A-B8EA-1B0B79AF5979}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfCare.Services", "SelfCare.Services\SelfCare.Services.csproj", "{53579F28-E51B-4794-93C7-7AB050B24E01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{6B3505DD-35D0-4E39-9011-A8325EC7E3F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B3505DD-35D0-4E39-9011-A8325EC7E3F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B3505DD-35D0-4E39-9011-A8325EC7E3F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A1CC78E-C4D2-445A-B8EA-1B0B79AF5979}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A1CC78E-C4D2-445A-B8EA-1B0B79AF5979}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A1CC78E-C4D2-445A-B8EA-1B0B79AF5979}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A1CC78E-C4D2-445A-B8EA-1B0B79AF5979}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53579F28-E51B-4794-93C7-7AB050B24E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53579F28-E51B-4794-93C7-7AB050B24E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53579F28-E51B-4794-93C7-7AB050B24E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53579F28-E51B-4794-93C7-7AB050B24E01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

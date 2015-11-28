@@ -4,16 +4,24 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using SelfCare.Services;
 
 namespace SelfCare.WebServices.Controllers
 {
     [Authorize]
     public class ValuesController : ApiController
     {
+        private readonly ICategoryService _categoryService;
+
+        public ValuesController(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
+
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _categoryService.GetCategoryNames(); // new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
