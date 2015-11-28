@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "name": "SelfCare.Web",
+  "private": true,
+  "devDependencies": {
+    "grunt": "0.4.5",
+    "grunt-contrib-less": "^1.0.0",
+    "less-plugin-autoprefix": "^1.4.0",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest"
+  }
+}

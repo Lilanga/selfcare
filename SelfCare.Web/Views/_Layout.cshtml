@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title ng-bind="title">@(PageData["title"] ?? "SelfCare Portal")</title>
+    <meta name="description" content="@PageData["description"]">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    @Styles.Render("~/content/css/app")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!--[if lt IE 9]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    @* The 'layout' property is set inside the app.run(..) method on '$stateChangeSuccess' *@
+    <nav class=" blue darken-2" role="navigation" ng-if=" !layout ">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="./" class="brand-logo">SelfCare Portal</a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a class="waves-effect" href="./about">About</a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="./login">Sign In</a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="./register">Register</a>
+                </li>
+            </ul>
+            <ul id="nav-mobile" class="side-nav">
+                <li>
+                    <a class="waves-effect" href="./about">About</a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="./login">Sign In</a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="./register">Register</a>
+                </li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse waves-effect"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+    <div class="container">
+        <div id="ui-view" class="container" ui-view data-tmpl-url="@Request.RequestContext.RouteData.DataTokens["templateUrl"]">
+            @RenderBody()
+        </div>
+    </div>
+    @*<footer class="page-footer blue darken-2" ng-if=" !layout ">
+        <div class="container">
+            <div class="row">
+                <div class="col l5 s12">
+                    <h6 class="white-text">Company Bio</h6>
+                    <p class="grey-text text-lighten-4">SoftCrafters are group of individuals working on pet projects and trying out new adventures. Any amount of help and support to continue development on our open source projects are greatly appreciated.</p>
+
+                </div>
+                <div class="col l5 s12">
+                    <h6 class="white-text">About</h6>
+                    <p class="grey-text text-lighten-4">Self Care portal is intended for tracking software product issues and end user feedbacks to decide product development roadmap using agile development manner</p>
+                </div>
+                <div class="col l2 s12">
+                    <h6 class="white-text">Connect</h6>
+                    <ul>
+                        <li><a class="white-text" href="#!">github</a></li>
+                        <li><a class="white-text" href="#!">twitter</a></li>
+                        <li><a class="white-text" href="#!">slack</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="blue-text text-lighten-3" href="https://github.com/SoftCrafters">SoftCrafters</a>
+            </div>
+        </div>
+    </footer>*@
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+    @Scripts.Render("~/js/app")
+    @*
+        Google Analytics
+        ----------------
+        Google recommends that this script be placed at the top of the page. Factors to consider: if you place this
+        script at the top of the page, you'll be able to count users who don't fully load the page, and you'll incur
+        the max number of simultaneous connections of the browser.
+        https://developers.google.com/analytics/devguides/collection/analyticsjs/
+    *@
+<script>
+    $(function () {
+        $('.button-collapse').sideNav();
+    });
+
+    // We need to find a different way since this gets called over and over again
+    //$(document).on('DOMNodeInserted', '.button-collapse', function() {
+    //    $('.button-collapse').sideNav();
+    //});
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '@WebConfigurationManager.AppSettings["GoogleAnalytics:PropertyID"]', '@(Request.IsLocal ? "none" : "auto")');
+</script>
+</body>
+
+</html>
