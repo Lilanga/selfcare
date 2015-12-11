@@ -57,7 +57,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['less:build']);
+    grunt.registerTask('default', ['less:build', 'typescript:build']);
     grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
