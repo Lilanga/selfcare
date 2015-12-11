@@ -22,6 +22,14 @@ module.exports = function (grunt) {
                     module: 'amd',
                     target: 'es5'
                 }
+            },
+            build: {
+                src: ['TypeScripts/reference.ts'],
+                dest: 'Scripts/selfcare.js',
+                options: {
+                    module: 'amd',
+                    target: 'es5'
+                }
             }
         },
         less: {
