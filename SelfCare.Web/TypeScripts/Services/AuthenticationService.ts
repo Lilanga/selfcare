@@ -24,10 +24,7 @@ module care.Services {
             var deferred = this.qService.defer();
             var self = this;
 
-            self.httpService.post(serviceBase + 'token', data, {
-                headers:
-                { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function (response) {
+            self.httpService.post(serviceBase + 'token', data, {headers:{ 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function (response) {
 
                 self.authenticationInfo = <Extentions.IAuthInfo>response;
                 self.authenticationInfo.isAuth = true;
