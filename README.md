@@ -3,3 +3,7 @@
 Self Care is a portal for tracking user feedbacks and responses of a given software product. Portal enable stakeholders to gather user insights and respond/take actions accordingly. 
 
 stories in ready [![Stories in Ready](https://badge.waffle.io/SoftCrafters/selfcare.png?label=ready&title=Ready)](http://waffle.io/SoftCrafters/selfcare)
+
+***
+
+This is basically written as a good bootstrap template for ASP.NET MVC based AngularJS single page projects which using Web API as data service backend.
