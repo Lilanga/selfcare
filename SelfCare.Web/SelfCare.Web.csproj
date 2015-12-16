@@ -512,8 +512,10 @@
     <TypeScriptCompile Include="TypeScripts\Controllers\LoginController.ts" />
     <TypeScriptCompile Include="TypeScripts\Interfaces\IExtentions.ts" />
     <TypeScriptCompile Include="TypeScripts\Interfaces\IServices.ts" />
+    <TypeScriptCompile Include="TypeScripts\Interfaces\IUtilities.ts" />
     <TypeScriptCompile Include="TypeScripts\reference.ts" />
     <TypeScriptCompile Include="TypeScripts\Services\AuthenticationService.ts" />
+    <TypeScriptCompile Include="TypeScripts\Services\CategoryService.ts" />
     <TypeScriptCompile Include="TypeScripts\Utilities.ts" />
   </ItemGroup>
   <PropertyGroup>

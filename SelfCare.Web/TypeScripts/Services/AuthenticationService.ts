@@ -28,6 +28,7 @@ module care.Services {
 
                 self.authenticationInfo = <Extentions.IAuthInfo>response;
                 self.authenticationInfo.isAuth = true;
+                
                 self.localStorageService.set('authorizationData',self.authenticationInfo);
 
                 deferred.resolve(response);
@@ -51,9 +52,14 @@ module care.Services {
         }
 
         logout(): void {
-            this.localStorageService.remove('authorizationData');
-            this.authenticationInfo.isAuth = false;
-            this.authenticationInfo.userName = "";
+            if (this.localStorageService) {
+                this.localStorageService.remove('authorizationData');
+            }
+
+            if (this.authenticationInfo) {
+                this.authenticationInfo.isAuth = false;
+                this.authenticationInfo.userName = "";
+            }
         }
 
         reloadAuthInfo(): Extentions.IAuthInfo {

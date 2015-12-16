@@ -74,12 +74,12 @@ var care;
         'use strict';
         var HomeCtrl = (function (_super) {
             __extends(HomeCtrl, _super);
-            function HomeCtrl($scope, $location, $window) {
+            function HomeCtrl($scope, $location, $window, categoryService) {
                 _super.call(this, $scope);
                 this.$scope = $scope;
                 this.$window = $window;
                 this.$location = $location;
-                // this.categorySvc = categoryDataSvc;
+                this.categorySvc = categoryService;
                 this.init();
             }
             HomeCtrl.prototype.init = function () {
@@ -89,12 +89,12 @@ var care;
                 self.$scope.$on('$viewContentLoaded', function () {
                     _this.$window.ga('send', 'pageview', { 'page': _this.$location.path(), 'title': _this.$scope.$root.title });
                 });
-                //self.categorySvc.getAllCategories().then(function (data) {
-                //    self.$scope.categories = data;
-                //});
+                self.categorySvc.loadCategories().then(function (data) {
+                    self.$scope.categories = data;
+                }, function (response) {
+                });
             };
-            // private categorySvc: CategoryDataSvc;
-            HomeCtrl.$inject = ['$scope', '$location', '$window'];
+            HomeCtrl.$inject = ['$scope', '$location', '$window', 'categoryService'];
             return HomeCtrl;
         })(Controllers.BaseController);
         Controllers.HomeCtrl = HomeCtrl;
@@ -233,9 +233,13 @@ var care;
                 });
             };
             AuthenticationService.prototype.logout = function () {
-                this.localStorageService.remove('authorizationData');
-                this.authenticationInfo.isAuth = false;
-                this.authenticationInfo.userName = "";
+                if (this.localStorageService) {
+                    this.localStorageService.remove('authorizationData');
+                }
+                if (this.authenticationInfo) {
+                    this.authenticationInfo.isAuth = false;
+                    this.authenticationInfo.userName = "";
+                }
             };
             AuthenticationService.prototype.reloadAuthInfo = function () {
                 this.authenticationInfo = this.localStorageService.get('authorizationData');
@@ -247,14 +251,67 @@ var care;
         Services.AuthenticationService = AuthenticationService;
     })(Services = care.Services || (care.Services = {}));
 })(care || (care = {}));
+var care;
+(function (care) {
+    var Services;
+    (function (Services) {
+        'use strict';
+        var CategoryService = (function () {
+            function CategoryService($http, $q) {
+                this.httpService = $http;
+                this.qService = $q;
+            }
+            CategoryService.prototype.loadCategories = function () {
+                var deferred = this.qService.defer();
+                var self = this;
+                self.httpService.get(serviceBase + 'api/Values').success(function (response) {
+                    deferred.resolve(response);
+                }).error(function (response) {
+                    deferred.reject(response);
+                });
+                return deferred.promise;
+            };
+            CategoryService.$inject = ['$http', '$q'];
+            return CategoryService;
+        })();
+        Services.CategoryService = CategoryService;
+    })(Services = care.Services || (care.Services = {}));
+})(care || (care = {}));
+var care;
+(function (care) {
+    var Utilities;
+    (function (Utilities) {
+        function authenticationInterceptorFactory($location, $q, localStorageService) {
+            return {
+                request: function (config) {
+                    config.headers = config.headers || {};
+                    var authenticationInfo = localStorageService.get('authorizationData');
+                    if (authenticationInfo && authenticationInfo.isAuth) {
+                        config.headers.Authorization = 'Bearer ' + authenticationInfo.access_token;
+                    }
+                    return config;
+                },
+                responseError: function (rejection) {
+                    if (rejection.status === 401) {
+                        $location.path('/login');
+                    }
+                    return $q.reject(rejection);
+                }
+            };
+        }
+        Utilities.authenticationInterceptorFactory = authenticationInterceptorFactory;
+    })(Utilities = care.Utilities || (care.Utilities = {}));
+})(care || (care = {}));
 /// <reference path="../scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="interfaces/iextentions.ts" />
 /// <reference path="interfaces/iservices.ts" />
-/// <reference path="utilities.ts" />
+/// <reference path="interfaces/iutilities.ts" />
 /// <reference path="controllers/basecontroller.ts" />
 /// <reference path="controllers/aboutcontroller.ts" />
 /// <reference path="controllers/homecontroller.ts" />
 /// <reference path="controllers/loginController.ts" />
 /// <reference path="controllers/landingController.ts" />
 /// <reference path="controllers/error404Controller.ts" />
-/// <reference path="Services/authenticationService.ts" /> 
+/// <reference path="Services/authenticationService.ts" />
+/// <reference path="services/categoryservice.ts" />
+/// <reference path="utilities.ts" /> 

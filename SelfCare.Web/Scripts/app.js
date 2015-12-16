@@ -26,7 +26,6 @@ angular.module('app', ['ui.router', 'app.filters', 'app.services', 'app.directiv
                 resolve: {
                     auth: authState
                 }
-
             })
             .state('about', {
                 url: '/about',
@@ -51,6 +50,10 @@ angular.module('app', ['ui.router', 'app.filters', 'app.services', 'app.directiv
         });
 
     }])
+    // include headers before service calls
+    .config(function ($httpProvider) {
+        $httpProvider.interceptors.push('authenticationInterceptor');
+    })
 
     // Gets executed after the injector is created and are used to kickstart the application. Only instances and constants
     // can be injected here. This is to prevent further system configuration during application run time.

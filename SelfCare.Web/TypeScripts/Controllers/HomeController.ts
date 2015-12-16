@@ -5,8 +5,8 @@
         private $scope;
         private $window;
         private $location;
-        // private categorySvc: CategoryDataSvc;
-        static $inject = ['$scope', '$location', '$window'];
+        private categorySvc: Services.ICategoryService;
+        static $inject = ['$scope', '$location', '$window','categoryService'];
 
         private init(): void {
             var self = this;
@@ -16,17 +16,20 @@
                 this.$window.ga('send', 'pageview', { 'page': this.$location.path(), 'title': this.$scope.$root.title });
             });
 
-            //self.categorySvc.getAllCategories().then(function (data) {
-            //    self.$scope.categories = data;
-            //});
+            self.categorySvc.loadCategories().then(
+                function(data) {
+                    self.$scope.categories = data;
+                },
+                function(response) {
+                });
         }
 
-        constructor($scope: IBaseScope, $location, $window) {
+        constructor($scope: IBaseScope, $location, $window, categoryService) {
             super($scope);
             this.$scope = $scope;
             this.$window = $window;
             this.$location = $location;
-            // this.categorySvc = categoryDataSvc;
+            this.categorySvc = categoryService;
 
             this.init();
         }

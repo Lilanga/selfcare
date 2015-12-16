@@ -14,7 +14,7 @@
     }
 
     export interface IAuthInfo {
-        token: string
+        access_token: string
         isAuth: boolean;
         userName: string;
         roles:Array<string>;

@@ -10,4 +10,8 @@
         logout: ()=>void;
         reloadAuthInfo:()=>AuthInfo;
     }
+
+    export interface ICategoryService {
+        loadCategories: () => ng.IPromise<any>;
+    }
 }
