@@ -24,4 +24,11 @@
         userName: string;
         password: string;
     }
+
+    export class SignUpData implements ISignUpData {
+        userName: string;
+        email: string;
+        password: string;
+        confirmPassword: string;
+    }
 }

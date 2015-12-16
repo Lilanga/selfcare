@@ -1,0 +1,27 @@
+﻿@{
+    PageData["title"] = "SelfCare Portal | Sign Up";
+}
+<div class="row">
+    <form class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" ng-submit="signUp()">
+        <h2 class="text-center">Sign Up</h2>
+        <div class="form-box">
+            <div class="form-group">
+                <input ng-model="signUpData.userName" type="text" class="form-control" placeholder="Username" required autofocus />
+            </div>
+            <div class="form-group">
+                <input ng-model="signUpData.email" type="text" class="form-control" placeholder="Email" required />
+            </div>
+            <div class="form-group">
+                <input ng-model="signUpData.password" type="password" class="form-control" placeholder="Password" required />
+            </div>
+            <div class="form-group">
+                <input ng-model="signUpData.confirmPassword" type="password" class="form-control" placeholder="Confirm Password" required />
+            </div>
+            <div class="form-group column">
+                <button class="btn waves-effect orange accent-2" type="submit" ng-disabled="!(signUpData.userName && signUpData.password && signUpData.email && signUpData.confirmPassword)" disabled>Sign Up</button>
+                <button class="btn waves-effect  indigo lighten-1" type="reset">Reset</button>
+                <button class="btn waves-effect  indigo lighten-1 right" ng-click="cancel()">Close</button>
+            </div>
+        </div>
+    </form>
+</div>

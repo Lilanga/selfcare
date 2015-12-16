@@ -9,6 +9,12 @@ var care;
             return LoginData;
         })();
         Extentions.LoginData = LoginData;
+        var SignUpData = (function () {
+            function SignUpData() {
+            }
+            return SignUpData;
+        })();
+        Extentions.SignUpData = SignUpData;
     })(Extentions = care.Extentions || (care.Extentions = {}));
 })(care || (care = {}));
 var care;
@@ -197,6 +203,49 @@ var care;
         Controllers.Error404Ctrl = Error404Ctrl;
     })(Controllers = care.Controllers || (care.Controllers = {}));
 })(care || (care = {}));
+var care;
+(function (care) {
+    var Controllers;
+    (function (Controllers) {
+        'use strict';
+        var SignUpData = care.Extentions.SignUpData;
+        var SignUpCtrl = (function (_super) {
+            __extends(SignUpCtrl, _super);
+            function SignUpCtrl($scope, $location, $window, authenticationService) {
+                _super.call(this, $scope);
+                this.$scope = $scope;
+                this.$window = $window;
+                this.$location = $location;
+                this.authService = authenticationService;
+                this.init();
+            }
+            SignUpCtrl.prototype.init = function () {
+                var self = this;
+                self.$scope.$root.title = 'SelfCare Portal | Sign In';
+                self.$scope.signUpData = new SignUpData();
+                // SignUp a user
+                self.$scope.signUp = function () {
+                    self.signinData = new SignUpData();
+                    self.signinData.email = self.$scope.signUpData.email;
+                    self.signinData.userName = self.$scope.signUpData.userName;
+                    self.signinData.password = self.$scope.signUpData.password;
+                    self.signinData.confirmPassword = self.$scope.signUpData.confirmPassword;
+                    self.authService.postSignUp(self.signinData).then(function (response) {
+                        self.$location.path('/home');
+                    }, function (response) {
+                    });
+                };
+                self.$scope.cancel = function () {
+                    self.$location.path('/');
+                    return false;
+                };
+            };
+            SignUpCtrl.$inject = ['$scope', '$location', '$window', 'authenticationService'];
+            return SignUpCtrl;
+        })(Controllers.BaseController);
+        Controllers.SignUpCtrl = SignUpCtrl;
+    })(Controllers = care.Controllers || (care.Controllers = {}));
+})(care || (care = {}));
 /// <reference path="../../scripts/typings/angular-local-storage/angular-local-storage.d.ts" />
 var care;
 (function (care) {
@@ -312,6 +361,7 @@ var care;
 /// <reference path="controllers/loginController.ts" />
 /// <reference path="controllers/landingController.ts" />
 /// <reference path="controllers/error404Controller.ts" />
+/// <reference path="controllers/signupcontroller.ts" />
 /// <reference path="Services/authenticationService.ts" />
 /// <reference path="services/categoryservice.ts" />
 /// <reference path="utilities.ts" /> 

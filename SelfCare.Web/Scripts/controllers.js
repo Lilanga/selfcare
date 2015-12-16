@@ -18,5 +18,8 @@ angular.module('app.controllers', [])
     // Path: /login
     .controller('LoginCtrl', care.Controllers.LoginCtrl)
 
+    // Path: /signIn
+    .controller('SignUpCtrl', care.Controllers.SignUpCtrl)
+
     // Path: /error/404
     .controller('Error404Ctrl', care.Controllers.Error404Ctrl);

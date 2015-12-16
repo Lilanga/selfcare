@@ -9,6 +9,7 @@
 /// <reference path="controllers/loginController.ts" />
 /// <reference path="controllers/landingController.ts" />
 /// <reference path="controllers/error404Controller.ts" />
+/// <reference path="controllers/signupcontroller.ts" />
 
 /// <reference path="Services/authenticationService.ts" />
 /// <reference path="services/categoryservice.ts" />
