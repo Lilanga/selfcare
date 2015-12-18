@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<parameters>
+  <parameter name="baseServiceUrl" defaultValue="logs">
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='baseServiceUrl']/@value" />
+  </parameter>
+</parameters>

@@ -67,6 +67,11 @@ namespace SelfCare.WebServices.Controllers
             };
         }
 
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.OK };
+        }
+
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()

@@ -1,4 +1,5 @@
-﻿'use strict';
+﻿/// <reference path="selfcare.js" />
+'use strict';
 
 // Google Analytics Collection APIs Reference:
 // https://developers.google.com/analytics/devguides/collection/analyticsjs/
@@ -6,44 +7,19 @@
 angular.module('app.controllers', [])
 
     // Path: /
-    .controller('HomeCtrl', ['$scope', '$location', '$window', function ($scope, $location, $window) {
-        $scope.$root.title = 'SelfCare Portal';
-        $scope.$on('$viewContentLoaded', function () {
-            $window.ga('send', 'pageview', { 'page': $location.path(), 'title': $scope.$root.title });
-        });
-    }])
+    .controller('LandingCtrl', care.Controllers.LandingCtrl)
+
+    // Path: /home
+    .controller('HomeCtrl', care.Controllers.HomeCtrl)
 
     // Path: /about
-    .controller('AboutCtrl', ['$scope', '$location', '$window', function ($scope, $location, $window) {
-        $scope.$root.title = 'SelfCare Portal | About';
-        $scope.$on('$viewContentLoaded', function () {
-            $window.ga('send', 'pageview', { 'page': $location.path(), 'title': $scope.$root.title });
-        });
-    }])
+    .controller('AboutCtrl', care.Controllers.AboutCtrl)
 
     // Path: /login
-    .controller('LoginCtrl', ['$scope', '$location', '$window', function ($scope, $location, $window) {
-        $scope.$root.title = 'SelfCare Portal | Sign In';
-        // TODO: Authorize a user
-        $scope.login = function () {
-            $location.path('/');
-            return false;
-        };
+    .controller('LoginCtrl', care.Controllers.LoginCtrl)
 
-        $scope.cancel = function () {
-            $location.path('/');
-            return false;
-        };
-
-        $scope.$on('$viewContentLoaded', function () {
-            $window.ga('send', 'pageview', { 'page': $location.path(), 'title': $scope.$root.title });
-        });
-    }])
+    // Path: /signIn
+    .controller('SignUpCtrl', care.Controllers.SignUpCtrl)
 
     // Path: /error/404
-    .controller('Error404Ctrl', ['$scope', '$location', '$window', function ($scope, $location, $window) {
-        $scope.$root.title = 'Error 404: Page Not Found';
-        $scope.$on('$viewContentLoaded', function () {
-            $window.ga('send', 'pageview', { 'page': $location.path(), 'title': $scope.$root.title });
-        });
-    }]);
+    .controller('Error404Ctrl', care.Controllers.Error404Ctrl);

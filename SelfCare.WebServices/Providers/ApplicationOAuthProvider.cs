@@ -26,6 +26,8 @@ namespace SelfCare.WebServices.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            //todo: update specific origin from configuration
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin",new []{ "*" });
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
@@ -81,6 +83,28 @@ namespace SelfCare.WebServices.Providers
             }
 
             return Task.FromResult<object>(null);
+        }
+
+        /// <summary>
+        /// Override to support CORS Preflight requests.
+        /// TODO: Need to update origin from configurations
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
+        public override Task MatchEndpoint(OAuthMatchEndpointContext context)
+        {
+            if (context.OwinContext.Request.Method == "OPTIONS" && context.IsTokenEndpoint)
+            {
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Methods", new[] { "POST" });
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "accept", "authorization", "content-type" });
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+                context.OwinContext.Response.StatusCode = 200;
+                context.RequestCompleted();
+
+                return Task.FromResult<object>(null);
+            }
+
+            return base.MatchEndpoint(context);
         }
 
         public static AuthenticationProperties CreateProperties(string userName)

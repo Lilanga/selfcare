@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app" id="app">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,31 +14,45 @@
     <!--[if lt IE 9]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    @* The 'layout' property is set inside the app.run(..) method on '$stateChangeSuccess' *@
-    <nav class=" blue darken-2" role="navigation" ng-if=" !layout ">
+@* The 'layout' property is set inside the app.run(..) method on '$stateChangeSuccess' *@
+    <nav class=" blue darken-2" role="navigation" ng-if=" !layout || layout != 'popup' ">
         <div class="nav-wrapper container">
             <a id="logo-container" href="./" class="brand-logo">SelfCare Portal</a>
             <ul class="right hide-on-med-and-down">
-                <li>
-                    <a class="waves-effect" href="./about">About</a>
-                </li>
-                <li>
-                    <a class="waves-effect" href="./login">Sign In</a>
-                </li>
-                <li>
-                    <a class="waves-effect" href="./register">Register</a>
-                </li>
+                <span ng-if=" !layout || layout != 'loggedIn' ">
+                    <li>
+                        <a class="waves-effect" href="./about">About</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="./login">Sign In</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="./signUp">Register</a>
+                    </li>
+                </span>
+                <span ng-if=" layout == 'loggedIn' ">
+                    <li>
+                        <a class="waves-effect" ng-click="authService.logout()">Log Out</a>
+                    </li>
+                </span>
             </ul>
-            <ul id="nav-mobile" class="side-nav">
-                <li>
-                    <a class="waves-effect" href="./about">About</a>
-                </li>
-                <li>
-                    <a class="waves-effect" href="./login">Sign In</a>
-                </li>
-                <li>
-                    <a class="waves-effect" href="./register">Register</a>
-                </li>
+            <ul id="nav-mobile" class="side-nav" ng-if=" !layout || layout != 'loggedIn' ">
+                <span ng-if=" !layout || layout != 'loggedIn' ">
+                    <li>
+                        <a class="waves-effect" href="./about">About</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="./login">Sign In</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="./signUp">Register</a>
+                    </li>
+                </span>
+                <span ng-if=" layout == 'loggedIn' ">
+                    <li>
+                        <a class="waves-effect" ng-click="$$childTail.logOut()">Log Out</a>
+                    </li>
+                </span>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse waves-effect"><i class="material-icons">menu</i></a>
         </div>
@@ -90,6 +104,7 @@
         https://developers.google.com/analytics/devguides/collection/analyticsjs/
     *@
 <script>
+    var serviceBase = '@WebConfigurationManager.AppSettings["baseServiceUrl"]';
     $(function () {
         $('.button-collapse').sideNav();
     });

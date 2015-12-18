@@ -13,12 +13,15 @@ namespace SelfCare.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/content/css/app").Include("~/content/app.css"));
+            bundles.Add(new StyleBundle("~/content/css/app").Include("~/content/app.css", "~/content/loading-bar.css"));
 
             bundles.Add(new ScriptBundle("~/js/jquery").Include("~/scripts/vendor/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/js/app").Include(
+                "~/scripts/loading-bar.js",
                 "~/scripts/vendor/angular-ui-router.js",
+                "~/scripts/angular-local-storage.js",
+                "~/scripts/selfcare.js",
                 "~/scripts/filters.js",
                 "~/scripts/services.js",
                 "~/scripts/directives.js",

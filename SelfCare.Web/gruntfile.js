@@ -8,6 +8,28 @@ module.exports = function (grunt) {
                 options: {
                     livereload: true
                 }
+            },
+            typescript: {
+                files: 'TypeScripts/**/*.ts',
+                tasks: ['typescript']
+            }
+        },
+        typescript: {
+            base: {
+                src: ['TypeScripts/reference.ts'],
+                dest: 'Scripts/selfcare.js',
+                options: {
+                    module: 'amd',
+                    target: 'es5'
+                }
+            },
+            build: {
+                src: ['TypeScripts/reference.ts'],
+                dest: 'Scripts/selfcare.js',
+                options: {
+                    module: 'amd',
+                    target: 'es5'
+                }
             }
         },
         less: {
@@ -35,8 +57,8 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['less:build']);
-
+    grunt.registerTask('default', ['less:build', 'typescript:build']);
+    grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
 };
