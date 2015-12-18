@@ -14,10 +14,17 @@
     }
 
     export interface IAuthInfo {
-        access_token: string
+        access_token: string;
         isAuth: boolean;
         userName: string;
         roles:Array<string>;
+    }
+
+    export class AuthInfo {
+        access_token: string;
+        isAuth: boolean;
+        userName: string;
+        roles: Array<string>;
     }
 
     export class LoginData implements ILoginData{

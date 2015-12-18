@@ -4,11 +4,8 @@
 
     export class SignUpCtrl extends BaseController {
         private $scope;
-        private $window;
-        private $location;
-        private authService: Services.IAuthenticationService;
-        private signinData: SignUpData;
-        static $inject = ['$scope', '$location', '$window', 'authenticationService'];
+        private signUpData: SignUpData;
+        static $inject = ['$scope'];
 
         private init(): void {
             var self = this;
@@ -18,12 +15,12 @@
 
             // SignUp a user
             self.$scope.signUp = function () {
-                self.signinData = new SignUpData();
-                self.signinData.email = self.$scope.signUpData.email;
-                self.signinData.userName = self.$scope.signUpData.userName;
-                self.signinData.password = self.$scope.signUpData.password;
-                self.signinData.confirmPassword = self.$scope.signUpData.confirmPassword;
-                self.authService.postSignUp(self.signinData).then(
+                self.signUpData = new SignUpData();
+                self.signUpData.email = self.$scope.signUpData.email;
+                self.signUpData.userName = self.$scope.signUpData.userName;
+                self.signUpData.password = self.$scope.signUpData.password;
+                self.signUpData.confirmPassword = self.$scope.signUpData.confirmPassword;
+                self.authService.postSignUp(self.signUpData).then(
                     function (response) {
                         self.$location.path('/home');
                     },
@@ -38,12 +35,9 @@
             };
         }
 
-        constructor($scope: IBaseScope, $location, $window, authenticationService) {
+        constructor($scope: IBaseScope) {
             super($scope);
             this.$scope = $scope;
-            this.$window = $window;
-            this.$location = $location;
-            this.authService = authenticationService;
 
             this.init();
         }

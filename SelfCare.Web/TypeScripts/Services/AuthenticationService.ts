@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../scripts/typings/angular-local-storage/angular-local-storage.d.ts" />
 module care.Services {
     import LocalStorageService = angular.local.storage.ILocalStorageService;
+    import AuthInfo = care.Extentions.AuthInfo;
     'use strict';
     declare var serviceBase: string;
 
@@ -9,13 +10,15 @@ module care.Services {
         qService: ng.IQService;
         localStorageService: LocalStorageService;
         authenticationInfo: Extentions.IAuthInfo;
+        $rootScope;
 
-        static $inject = ['$http', '$q', 'localStorageService'];
+        static $inject = ['$http', '$q', 'localStorageService', '$rootScope'];
 
-        constructor($http, $q, localStorageService) {
+        constructor($http, $q, localStorageService, $rootScope) {
             this.httpService = $http;
             this.qService = $q;
             this.localStorageService = localStorageService;
+            this.$rootScope = $rootScope;
         }
 
         getAuthenticationToken(loginData: Extentions.ILoginData): any {
@@ -56,14 +59,24 @@ module care.Services {
                 this.localStorageService.remove('authorizationData');
             }
 
-            if (this.authenticationInfo) {
+            if (!this.authenticationInfo) {
+                this.reloadAuthInfo();
+            }
                 this.authenticationInfo.isAuth = false;
                 this.authenticationInfo.userName = "";
-            }
+            
+
+            this.$rootScope.$broadcast('user:logout', this.authenticationInfo);
         }
 
         reloadAuthInfo(): Extentions.IAuthInfo {
             this.authenticationInfo = <Extentions.IAuthInfo>this.localStorageService.get('authorizationData');
+            if (!this.authenticationInfo) {
+                this.authenticationInfo = new AuthInfo();
+                this.authenticationInfo.isAuth = false;
+                this.authenticationInfo.userName = "";
+            }
+
             return this.authenticationInfo;
         }
     }

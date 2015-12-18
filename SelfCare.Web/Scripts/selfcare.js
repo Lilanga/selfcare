@@ -3,6 +3,12 @@ var care;
     var Extentions;
     (function (Extentions) {
         'use strict';
+        var AuthInfo = (function () {
+            function AuthInfo() {
+            }
+            return AuthInfo;
+        })();
+        Extentions.AuthInfo = AuthInfo;
         var LoginData = (function () {
             function LoginData() {
             }
@@ -24,6 +30,7 @@ var care;
         'use strict';
     })(Services = care.Services || (care.Services = {}));
 })(care || (care = {}));
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 var care;
 (function (care) {
     var Controllers;
@@ -31,9 +38,22 @@ var care;
         'use strict';
         var BaseController = (function () {
             function BaseController($scope) {
+                var $injector = angular.element(document.getElementById('app')).injector();
                 this.scope = $scope;
                 this.scope.events = this;
+                this.$location = $injector.get('$location');
+                this.$window = $injector.get('$window');
+                this.authService = $injector.get('authenticationService');
+                this.initialize();
             }
+            BaseController.prototype.initialize = function () {
+                var self = this;
+                self.scope.isAuthenticated = self.authService.reloadAuthInfo().isAuth;
+                self.scope.logOut = function () {
+                    self.authService.logout();
+                    self.$location.path('/');
+                };
+            };
             return BaseController;
         })();
         Controllers.BaseController = BaseController;
@@ -51,12 +71,9 @@ var care;
         'use strict';
         var AboutCtrl = (function (_super) {
             __extends(AboutCtrl, _super);
-            function AboutCtrl($scope, $location, $window, authenticationService) {
+            function AboutCtrl($scope) {
                 _super.call(this, $scope);
                 this.$scope = $scope;
-                this.$window = $window;
-                this.$location = $location;
-                this.authService = authenticationService;
                 this.init();
             }
             AboutCtrl.prototype.init = function () {
@@ -67,7 +84,7 @@ var care;
                     _this.$window.ga('send', 'pageview', { 'page': _this.$location.path(), 'title': _this.$scope.$root.title });
                 });
             };
-            AboutCtrl.$inject = ['$scope', '$location', '$window', 'authenticationService'];
+            AboutCtrl.$inject = ['$scope'];
             return AboutCtrl;
         })(Controllers.BaseController);
         Controllers.AboutCtrl = AboutCtrl;
@@ -80,11 +97,9 @@ var care;
         'use strict';
         var HomeCtrl = (function (_super) {
             __extends(HomeCtrl, _super);
-            function HomeCtrl($scope, $location, $window, categoryService) {
+            function HomeCtrl($scope, categoryService) {
                 _super.call(this, $scope);
                 this.$scope = $scope;
-                this.$window = $window;
-                this.$location = $location;
                 this.categorySvc = categoryService;
                 this.init();
             }
@@ -100,7 +115,7 @@ var care;
                 }, function (response) {
                 });
             };
-            HomeCtrl.$inject = ['$scope', '$location', '$window', 'categoryService'];
+            HomeCtrl.$inject = ['$scope', 'categoryService'];
             return HomeCtrl;
         })(Controllers.BaseController);
         Controllers.HomeCtrl = HomeCtrl;
@@ -114,12 +129,9 @@ var care;
         var LoginData = care.Extentions.LoginData;
         var LoginCtrl = (function (_super) {
             __extends(LoginCtrl, _super);
-            function LoginCtrl($scope, $location, $window, authenticationService) {
+            function LoginCtrl($scope) {
                 _super.call(this, $scope);
                 this.$scope = $scope;
-                this.$window = $window;
-                this.$location = $location;
-                this.authService = authenticationService;
                 this.init();
             }
             LoginCtrl.prototype.init = function () {
@@ -141,7 +153,7 @@ var care;
                     return false;
                 };
             };
-            LoginCtrl.$inject = ['$scope', '$location', '$window', 'authenticationService'];
+            LoginCtrl.$inject = ['$scope'];
             return LoginCtrl;
         })(Controllers.BaseController);
         Controllers.LoginCtrl = LoginCtrl;
@@ -154,11 +166,9 @@ var care;
         'use strict';
         var LandingCtrl = (function (_super) {
             __extends(LandingCtrl, _super);
-            function LandingCtrl($scope, $location, $window) {
+            function LandingCtrl($scope) {
                 _super.call(this, $scope);
                 this.$scope = $scope;
-                this.$window = $window;
-                this.$location = $location;
                 this.init();
             }
             LandingCtrl.prototype.init = function () {
@@ -169,7 +179,7 @@ var care;
                     _this.$window.ga('send', 'pageview', { 'page': _this.$location.path(), 'title': _this.$scope.$root.title });
                 });
             };
-            LandingCtrl.$inject = ['$scope', '$location', '$window'];
+            LandingCtrl.$inject = ['$scope'];
             return LandingCtrl;
         })(Controllers.BaseController);
         Controllers.LandingCtrl = LandingCtrl;
@@ -182,11 +192,9 @@ var care;
         'use strict';
         var Error404Ctrl = (function (_super) {
             __extends(Error404Ctrl, _super);
-            function Error404Ctrl($scope, $location, $window) {
+            function Error404Ctrl($scope) {
                 _super.call(this, $scope);
                 this.$scope = $scope;
-                this.$window = $window;
-                this.$location = $location;
                 this.init();
             }
             Error404Ctrl.prototype.init = function () {
@@ -197,7 +205,7 @@ var care;
                     _this.$window.ga('send', 'pageview', { 'page': _this.$location.path(), 'title': _this.$scope.$root.title });
                 });
             };
-            Error404Ctrl.$inject = ['$scope', '$location', '$window'];
+            Error404Ctrl.$inject = ['$scope'];
             return Error404Ctrl;
         })(Controllers.BaseController);
         Controllers.Error404Ctrl = Error404Ctrl;
@@ -211,12 +219,9 @@ var care;
         var SignUpData = care.Extentions.SignUpData;
         var SignUpCtrl = (function (_super) {
             __extends(SignUpCtrl, _super);
-            function SignUpCtrl($scope, $location, $window, authenticationService) {
+            function SignUpCtrl($scope) {
                 _super.call(this, $scope);
                 this.$scope = $scope;
-                this.$window = $window;
-                this.$location = $location;
-                this.authService = authenticationService;
                 this.init();
             }
             SignUpCtrl.prototype.init = function () {
@@ -225,12 +230,12 @@ var care;
                 self.$scope.signUpData = new SignUpData();
                 // SignUp a user
                 self.$scope.signUp = function () {
-                    self.signinData = new SignUpData();
-                    self.signinData.email = self.$scope.signUpData.email;
-                    self.signinData.userName = self.$scope.signUpData.userName;
-                    self.signinData.password = self.$scope.signUpData.password;
-                    self.signinData.confirmPassword = self.$scope.signUpData.confirmPassword;
-                    self.authService.postSignUp(self.signinData).then(function (response) {
+                    self.signUpData = new SignUpData();
+                    self.signUpData.email = self.$scope.signUpData.email;
+                    self.signUpData.userName = self.$scope.signUpData.userName;
+                    self.signUpData.password = self.$scope.signUpData.password;
+                    self.signUpData.confirmPassword = self.$scope.signUpData.confirmPassword;
+                    self.authService.postSignUp(self.signUpData).then(function (response) {
                         self.$location.path('/home');
                     }, function (response) {
                     });
@@ -240,7 +245,7 @@ var care;
                     return false;
                 };
             };
-            SignUpCtrl.$inject = ['$scope', '$location', '$window', 'authenticationService'];
+            SignUpCtrl.$inject = ['$scope'];
             return SignUpCtrl;
         })(Controllers.BaseController);
         Controllers.SignUpCtrl = SignUpCtrl;
@@ -251,12 +256,14 @@ var care;
 (function (care) {
     var Services;
     (function (Services) {
+        var AuthInfo = care.Extentions.AuthInfo;
         'use strict';
         var AuthenticationService = (function () {
-            function AuthenticationService($http, $q, localStorageService) {
+            function AuthenticationService($http, $q, localStorageService, $rootScope) {
                 this.httpService = $http;
                 this.qService = $q;
                 this.localStorageService = localStorageService;
+                this.$rootScope = $rootScope;
             }
             AuthenticationService.prototype.getAuthenticationToken = function (loginData) {
                 var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
@@ -285,16 +292,23 @@ var care;
                 if (this.localStorageService) {
                     this.localStorageService.remove('authorizationData');
                 }
-                if (this.authenticationInfo) {
-                    this.authenticationInfo.isAuth = false;
-                    this.authenticationInfo.userName = "";
+                if (!this.authenticationInfo) {
+                    this.reloadAuthInfo();
                 }
+                this.authenticationInfo.isAuth = false;
+                this.authenticationInfo.userName = "";
+                this.$rootScope.$broadcast('user:logout', this.authenticationInfo);
             };
             AuthenticationService.prototype.reloadAuthInfo = function () {
                 this.authenticationInfo = this.localStorageService.get('authorizationData');
+                if (!this.authenticationInfo) {
+                    this.authenticationInfo = new AuthInfo();
+                    this.authenticationInfo.isAuth = false;
+                    this.authenticationInfo.userName = "";
+                }
                 return this.authenticationInfo;
             };
-            AuthenticationService.$inject = ['$http', '$q', 'localStorageService'];
+            AuthenticationService.$inject = ['$http', '$q', 'localStorageService', '$rootScope'];
             return AuthenticationService;
         })();
         Services.AuthenticationService = AuthenticationService;

@@ -4,11 +4,8 @@
 
     export class LoginCtrl extends BaseController {
         private $scope;
-        private $window;
-        private $location;
-        private authService: Services.IAuthenticationService;
         private signinData: LoginData;
-        static $inject = ['$scope', '$location', '$window', 'authenticationService'];
+        static $inject = ['$scope'];
 
         private init(): void {
             var self = this;
@@ -36,12 +33,9 @@
             };
         }
 
-        constructor($scope: IBaseScope, $location, $window, authenticationService) {
+        constructor($scope: IBaseScope) {
             super($scope);
             this.$scope = $scope;
-            this.$window = $window;
-            this.$location = $location;
-            this.authService = authenticationService;
 
             this.init();          
         }

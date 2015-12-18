@@ -15,34 +15,48 @@ angular.module('app', ['ui.router', 'app.filters', 'app.services', 'app.directiv
         $stateProvider
             .state('index', {
                 url: '/',
+                layout: 'public',
                 templateUrl: '/views/index',
-                controller: 'LandingCtrl'
-
+                controller: 'LandingCtrl',
+                resolve: {
+                    auth: publicState
+                }
             })
             .state('home', {
                 url: '/home',
                 templateUrl: '/views/home',
                 controller: 'HomeCtrl',
+                layout: 'loggedIn',
                 resolve: {
                     auth: authState
                 }
             })
             .state('about', {
                 url: '/about',
+                layout: 'public',
                 templateUrl: '/views/about',
-                controller: 'AboutCtrl'
+                controller: 'AboutCtrl',
+                resolve: {
+                    auth: publicState
+                }
             })
             .state('login', {
                 url: '/login',
-                layout: 'basic',
+                layout: 'popup',
                 templateUrl: '/views/login',
-                controller: 'LoginCtrl'
+                controller: 'LoginCtrl',
+                resolve: {
+                    auth: publicState
+                }
             })
             .state('signUp', {
                 url: '/signUp',
-                layout: 'basic',
+                layout: 'popup',
                 templateUrl: '/views/signUp',
-                controller: 'SignUpCtrl'
+                controller: 'SignUpCtrl',
+                resolve: {
+                    auth: publicState
+                }
             })
             .state('otherwise', {
                 url: '*path',
@@ -63,7 +77,7 @@ angular.module('app', ['ui.router', 'app.filters', 'app.services', 'app.directiv
 
     // Gets executed after the injector is created and are used to kickstart the application. Only instances and constants
     // can be injected here. This is to prevent further system configuration during application run time.
-    .run(['$templateCache', '$rootScope', '$state', '$stateParams', '$location', function ($templateCache, $rootScope, $state, $stateParams, $location) {
+    .run(['$templateCache', '$rootScope', '$state', '$stateParams', '$location', 'authenticationService', '$timeout', function ($templateCache, $rootScope, $state, $stateParams, $location, authenticationService, $timeout) {
 
         // <ui-view> contains a pre-rendered template for the current view
         // caching it will prevent a round-trip to a server at the first page load
@@ -74,6 +88,16 @@ angular.module('app', ['ui.router', 'app.filters', 'app.services', 'app.directiv
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
 
+        // authenticate related
+        $rootScope.authService = authenticationService;
+
+        $rootScope.$on('user:logout', function (event, authInfo) {
+            // handle the global logout logic
+            if (!authInfo.isAuth) {
+                $location.path('/');
+            }
+        });
+
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
 
             // Sets the layout name, which can be used to display different layouts (header, footer etc.)
@@ -83,19 +107,19 @@ angular.module('app', ['ui.router', 'app.filters', 'app.services', 'app.directiv
 
         $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
             if (error.authenticated === false) {
-                $location.path('/login');
-                $rootScope.$apply();
+                $timeout(function () {
+                    $location.path('/login');
+                });                
+                // $rootScope.$apply();
+            } else {
+                $timeout(function () {
+                    $location.path('/home');
+                });
+                // $rootScope.$apply();
             }
         });
 
         $rootScope.$on('$routeChangeSuccess', function (authInfo) {
-        });
-
-        $rootScope.$on('$routeChangeError', function (event, current, previous, eventObj) {
-            if (eventObj.authenticated === false) {
-                $location.path('/login');
-                $rootScope.$apply();
-            }
         });
     }]);
 
@@ -109,3 +133,13 @@ var authState = ["$q", "authenticationService", function($q, authenticationServi
         }
     }
 ];
+
+var publicState = ["$q", "authenticationService", '$location', '$timeout', function ($q, authenticationService, $location, $timeout) {
+    var authInfo = authenticationService.reloadAuthInfo();
+
+    if (!authInfo || !authInfo.isAuth) {
+        return $q.when(authInfo);
+    } else {
+        return $q.reject({ authenticated: true });
+    }
+}];

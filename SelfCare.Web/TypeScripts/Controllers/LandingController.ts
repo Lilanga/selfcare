@@ -3,10 +3,7 @@
 
     export class LandingCtrl extends BaseController {
         private $scope;
-        private $window;
-        private $location;
-
-        static $inject = ['$scope', '$location', '$window'];
+        static $inject = ['$scope'];
 
         private init(): void {
             var self = this;
@@ -17,11 +14,9 @@
             });
         }
 
-        constructor($scope: IBaseScope, $location, $window) {
+        constructor($scope: IBaseScope) {
             super($scope);
             this.$scope = $scope;
-            this.$window = $window;
-            this.$location = $location;
 
             this.init();
         }

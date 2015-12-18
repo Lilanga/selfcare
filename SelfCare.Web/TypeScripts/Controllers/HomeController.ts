@@ -3,10 +3,8 @@
 
     export class HomeCtrl extends BaseController{
         private $scope;
-        private $window;
-        private $location;
         private categorySvc: Services.ICategoryService;
-        static $inject = ['$scope', '$location', '$window','categoryService'];
+        static $inject = ['$scope','categoryService'];
 
         private init(): void {
             var self = this;
@@ -24,11 +22,9 @@
                 });
         }
 
-        constructor($scope: IBaseScope, $location, $window, categoryService) {
+        constructor($scope: IBaseScope,categoryService) {
             super($scope);
             this.$scope = $scope;
-            this.$window = $window;
-            this.$location = $location;
             this.categorySvc = categoryService;
 
             this.init();
