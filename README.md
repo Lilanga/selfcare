@@ -6,4 +6,4 @@ stories in ready [![Stories in Ready](https://badge.waffle.io/SoftCrafters/selfc
 
 ***
 
-This is basically written as a good bootstrap template for ASP.NET MVC based AngularJS single page projects which using Web API as data service backend.
+This is basically written as a good startup template for ASP.NET MVC based AngularJS single page projects which using Web API as data service backend.
