@@ -3,4 +3,7 @@
   <parameter name="baseServiceUrl" defaultValue="logs">
     <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='baseServiceUrl']/@value" />
   </parameter>
+  <parameter name="GoogleAnalytics:PropertyID" defaultValue="">
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='GoogleAnalytics:PropertyID']/@value" />
+  </parameter>
 </parameters>
